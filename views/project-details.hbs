@@ -1,0 +1,72 @@
+<main role="main">
+    <div class="album py-3 bg-light">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 project-detail-sb">
+                    <div class="sb-links ">
+                        <h2>links</h2>
+                        <div>
+                            <a class="btn btn-primary" href="#">Live Demo</a>
+                        </div>
+
+                        <div class="my-2">
+                            {{!-- <a class="btn btn-secondary" href="#">GitHub URL</a> --}}
+                            <a class="btn btn-secondary" href="{{projectDetails.githubUrl}}">GitHub URL</a>
+                        </div>
+                    </div>
+
+                    <div class="sb-links mb-2">
+                        {{!-- <h2>Tags</h2> <a class="badge badge-primary" href="#">JavaScript</a> --}}
+                        <h2>Tag</h2>
+                        {{#each projectDetails.tags}}
+                        <a class="badge badge-{{this.class}}" href="#">{{this.name}}</a>
+                        {{/each}}
+                        {{!-- <a class="badge badge-info" href="#">Math</a>
+ <a class="badge badge-danger" href="#">Random</a> --}}
+                    </div>
+                    <div class="sb-links mb-2">
+                        <h2>Related projects</h2>
+                        {{#each projectDetails.relatedProjects}}
+                        <div class="my-2">
+                            <a href="/projects/{{this.link}}">{{this.name}}</a>
+                        </div>
+                        {{/each}}
+                        {{!-- 
+                        <div class="my-2">
+                        <a href="#">JS console</a>
+                        </div>
+                        <div>
+                        <a href="#">Image Gallary</a>
+                        </div> 
+                        <div>
+                        <a href="#">Bouncing balls</a>
+                        </div>--}}
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Projects</a></li>
+                            <li class="breadcrumb-item activeProject" aria-current="page">{{projectDetails.alias}}</li>
+                        </ol>
+                    </nav>
+
+                    <h2>My Project</h2>
+                    <p>Description section</p>
+
+                    <h2>{{projectDetails.alias}}</h2>
+                    <p>{{projectDetails.Description}}</p>
+
+                    <h2>{{project.name}}</h2>
+                    <p>In this project you will build a small number guessing game. System will select a random number
+                        between 1 and 100. See
+                        if you can guess it in 10 turns or fewer. We'll tell you if your guess was too high or too low
+                    </p>
+                    <img src="/images/image1.png" alt={{projectDetails.alias}} />
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
