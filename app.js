@@ -23,7 +23,7 @@ app.use(express.static(__dirname+'/static'))
 app.use(appMiddleware.logger);
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
-app.use(appMiddleware.authenticated);
+app.use(appMiddleware.authenticated)
 
 //setup the app.js
 app.get('/', routes.index);
@@ -37,9 +37,13 @@ app.get('/contact', routes.contact);
 
 app.get('/admin', appMiddleware.authenticate, routes.admin);
 
-app.get('/signin', routes.signin);
-app.post('/signin', routes.doSignin)
+app.get('/admin/projects', appMiddleware.authenticate, routes.adminProjects);
 
+app.get('/admin/project');
+
+app.get('/signin', routes.signin);
+app.post('/signin', routes.doSignin);
+app.get('/signout', routes.signout);
 
 
 

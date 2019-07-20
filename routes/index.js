@@ -116,16 +116,39 @@ module.exports.doSignin = (req,res, next) => {
         next(new Error('Password is wrong'))
     }
     
-    res.render('admin', {
-        title:'Admin'
+    // res.render('admin', {
+    //     title:'Admin'
+    // })
+}
+
+// module.exports.admin = (req,res) => {
+//     res.render('admin', {
+//         title:'Admin'
+//     })
+// }
+
+module.exports.admin = (req,res) => {
+    res.render('admin/index', {
+        title:'Admin',
+        layout:'admin-layout'
     })
 }
 
-module.exports.admin = (req,res) => {
-    res.render('admin', {
-        title:'Admin'
+module.exports.signout = (req,res) => {
+    req.session.isLoggedIn = false;
+    req.session.user = {};
+
+    res.redirect('/');
+}
+
+module.exports.adminProjects = (req,res) => {
+    res.render('admin/projects', {
+        title:'Project List',
+        layout: 'admin-layout',
+        projects:data.myProjects
     })
 }
+
 
 // module.exports.signin = (req,res) =>{    
 //     res.render('signin', {

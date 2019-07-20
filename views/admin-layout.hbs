@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {{> head }}
+    <link rel="stylesheet" href="/css/dashboard.css" />
+</head>
+<body>
+    
+{{> admin/header}}
+
+<div class="container-fluid">
+    <div class="row">
+        {{> admin/sidebar}}
+        
+        {{{body}}}        
+    </div>
+</div>
+
+
+{{> script}}
+
+<script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+<script>
+    feather.replace()
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+
+<script src="/js/dashboard.js"></script>
+
+</body>
+</html>
