@@ -38,6 +38,12 @@ app.get('/contact', routes.contact);
 app.get('/admin', appMiddleware.authenticate, routes.admin);
 
 app.get('/admin/projects', appMiddleware.authenticate, routes.adminProjects);
+// This path is for get the data
+app.get('/admin/projects/create-new', appMiddleware.authenticate, routes.createProject);
+// This path is for post the data
+app.post('/admin/projects/create-new', appMiddleware.authenticate, routes.docreateProject);
+
+//app.get('/admin/projects/:alias', appMiddleware.authenticate, routes.project-details);
 
 app.get('/admin/project');
 

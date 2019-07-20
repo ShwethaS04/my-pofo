@@ -1,6 +1,22 @@
 const data = require('../my-data.js')
+const MongoClient = require('mongodb').MongoClient;
 
+// Specify the mongodb url
+const dbUrl  = 'mongodb://localhost:27017';
 
+let db;
+
+//to connect mongodb connect()
+//MongoClient.connect(dbUrl, {useNewUrlParser: true}, function(err, data)
+MongoClient.connect(dbUrl, {useNewUrlParser: true}, function(err, client){
+    if(err) {
+        console.log(err);
+    }else {
+        console.log('Successfully connected to DB');
+        // connecting to the batch-3 db
+        db = client.db('batch-3');
+    }
+})
 // module.exports.index = function(req,res){
 //     res.render('index', {title:'My Portfolio',
 //     hasNavHome:true
@@ -20,16 +36,83 @@ module.exports.index = function(req,res){
     })
 }
 
-module.exports.project = function(req,res){
-    console.log(req.session);
-    console.log(data.myProjects);
+module.exports.project = function(req, res, next){
+    //connecting to our collections users
+    //let usrCollection = db.collection('users');
+    let projectCollection = db.collection('projects');
+
+    //usrCollection.find().toArray((err,data)
+    projectCollection.find().toArray((err,data) => {
+        if(err){
+            console.log(err);
+            next(err);
+        } else {
+            //console.log('User Data');
+            console.log('Project Data');
+            console.log(data);
+            
+            
     res.render('projects', {
         layout:'layout',
         title:'Projects',
-        projects:data.myProjects,
+        projects:data,
         hasNavProject:true
     })
+        }
+    })
+
+
+    // res.render('projects', {
+    //     layout:'layout',
+    //     title:'Projects',
+    //     projects:data.myProjects,
+    //     hasNavProject:true
+    // })
 }
+
+module.exports.createProject = function(req, res) {
+    res.render('admin/create-project', {
+        title: 'Create Project',
+        layout : 'admin-layout'
+    })
+}
+
+//module.exports.docreateProject = function(req, res)
+module.exports.docreateProject = function(req, res, next) {
+    
+    let bodyData = req.body;
+
+    let project = bodyData;
+
+    project.alias = bodyData.name.split(' ').join('-').toLowerCase();
+
+    let projectCollection = db.collection('projects');
+
+    projectCollection.insertOne(project, function(err,data){
+        if(err) {
+            console.log(err);
+            next(err);
+        }
+        else{
+            console.log('data created');
+            res.redirect('/admin/projects');
+        }
+    })
+
+    // console.log(bodyData);
+    // console.log('Do create projects');
+    // res.redirect('/admin/projects')
+}
+// module.exports.project = function(req,res){
+//     console.log(req.session);
+//     console.log(data.myProjects);
+//     res.render('projects', {
+//         layout:'layout',
+//         title:'Projects',
+//         projects:data.myProjects,
+//         hasNavProject:true
+//     })
+// }
 
 module.exports.projectDetail = function(req,res){
 
